@@ -44,6 +44,9 @@ function Grid() {
   const gensRef = useRef(generations);
   gensRef.current = generations;
 
+  const speedRef = useRef(speed);
+  speedRef.current = speed;
+
   const clearGrid = () => {
     setGrid(initialGrid);
     generations = 0;
@@ -84,7 +87,7 @@ function Grid() {
       });
     });
     generations++;
-    setTimeout(runSimulation, speed);
+    setTimeout(runSimulation, speedRef.current);
   }, [speed]);
 
   console.log(grid);
