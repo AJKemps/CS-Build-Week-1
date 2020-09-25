@@ -140,7 +140,7 @@ function Grid() {
   return (
     <>
       <div className="content-container">
-        {/* <Presets methods={{ sampleGrid2, sampleGrid, setRunning }} /> */}
+        <Presets methods={{ sampleGrid2, sampleGrid, setRunning }} />
         <About />
       </div>
       <div className="game-container">

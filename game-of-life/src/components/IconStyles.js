@@ -4,6 +4,7 @@ const IconStyles = {
   color: "#7400b8",
   size: "2.0em",
   margin: "auto",
+  cursor: "pointer",
 };
 
 export default IconStyles;
