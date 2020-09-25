@@ -5,8 +5,7 @@ function Presets({ methods }) {
   console.log("methods", methods);
   return (
     <div className="presets-container">
-      <div>Fun Initial States</div>
-
+      Fun Initial States
       <div id="presets">
         {Samples.map((item) => (
           <div

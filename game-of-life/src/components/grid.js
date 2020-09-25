@@ -2,7 +2,7 @@ import React, { useState, useCallback, useRef, useEffect } from "react";
 import Controls from "./Controls";
 import Stats from "./Stats";
 import Presets from "./Presets";
-import Header from "./Header";
+import About from "./About";
 import produce from "immer";
 
 const numRows = 50;
@@ -140,8 +140,8 @@ function Grid() {
   return (
     <>
       <div className="content-container">
-        <Header />
-        <Presets methods={{ sampleGrid2, sampleGrid, setRunning }} />
+        {/* <Presets methods={{ sampleGrid2, sampleGrid, setRunning }} /> */}
+        <About />
       </div>
       <div className="game-container">
         <Controls
