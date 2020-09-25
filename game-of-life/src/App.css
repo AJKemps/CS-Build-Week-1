@@ -1,11 +1,147 @@
-.container {
-  max-width: 400px;
+* {
+  border: 1px solid red;
+  box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+  font-size: 10px;
+
+  background-color: #03071e;
 }
 
-.container div::after {
-  display: block;
-  padding-top: 100%;
-  content: "";
-  vertical-align: top;
+html {
+  box-sizing: border-box;
+  color: white;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+.content-container {
+  color: #f0e6ef;
+}
+
+p {
+  font-size: 4em;
+}
+
+.app-wrapper {
+  box-sizing: border-box;
+
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  max-width: 800px;
+}
+
+.game-container {
+  color: #7400b8;
+  padding: 2%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.grid-container {
+  padding: 2%;
+  box-sizing: border-box;
+}
+
+.stats-container {
+  padding: 0% 2% 0% 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: space-between;
   width: 100%;
+}
+
+.presets-container {
+  color: #f0e6ef;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 2px;
+  border: 1px solid #7400b8;
+  background-color: #7400b8;
+}
+
+#presets {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#presets-title {
+  width: 25%;
+}
+
+#presets-divs {
+  padding: 0% 2% 0% 2%;
+}
+
+.controls-container {
+  padding: 0% 2% 0% 2%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.play-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+}
+
+.play-divs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  text-align: center;
+  margin-right: 10px;
+  text-transform: uppercase;
+}
+
+.speed-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 2px;
+  border: 1px solid #7400b8;
+}
+
+.speed-divs {
+  width: 30px;
+  text-align: center;
+  font-size: 8px;
+  padding: 3px;
+}
+
+button {
+  margin: auto;
+}
+
+#genpop {
+  width: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#running {
+  text-transform: uppercase;
+  font-weight: bold;
 }

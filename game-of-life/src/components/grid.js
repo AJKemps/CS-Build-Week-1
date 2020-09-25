@@ -1,11 +1,14 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
+import Controls from "./Controls";
+import Stats from "./Stats";
+import Presets from "./Presets";
+import Header from "./Header";
 import produce from "immer";
-import { samples } from "./samples";
 
 const numRows = 50;
 const numCols = 50;
 
-const size = 10;
+const size = 8;
 
 const operations = [
   [0, 1],
@@ -38,17 +41,17 @@ let population = 0;
 let generations = 0;
 
 let speeds = [
-  { name: "10x", milleseconds: 100 },
-  { name: "4x", milleseconds: 250 },
-  { name: "2x", milleseconds: 500 },
-  { name: "1x", milleseconds: 1000 },
-  { name: "1/2x", milleseconds: 2000 },
+  { name: "1/4x", milleseconds: 1000 },
+  { name: "1/2x", milleseconds: 500 },
+  { name: "1x", milleseconds: 250 },
+  { name: "2x", milleseconds: 125 },
+  { name: "4x", milleseconds: 75 },
 ];
 
 function Grid() {
   const [grid, setGrid] = useState(initialGrid);
   const [running, setRunning] = useState(false);
-  const [speed, setSpeed] = useState(speeds[3].milleseconds);
+  const [speed, setSpeed] = useState(speeds[2].milleseconds);
 
   const runningRef = useRef(running);
   runningRef.current = running;
@@ -86,10 +89,17 @@ function Grid() {
     setGrid(rows);
   };
 
+  function sampleGrid2(sample) {
+    setGrid(sample);
+    generations = 0;
+  }
+
   const sampleGrid = (sample) => {
     setGrid(sample);
     generations = 0;
   };
+
+  //   useEffect(() => sampleGrid(), []);
 
   const runSimulation = useCallback(() => {
     if (!runningRef.current) {
@@ -129,66 +139,54 @@ function Grid() {
 
   return (
     <>
-      <button
-        onClick={() => {
-          setRunning(!running);
-          if (!running) {
-            runningRef.current = true;
-            runSimulation();
-          }
-        }}
-      >
-        {running ? "Stop" : "Start"}
-      </button>
-      <button onClick={clearGrid}>Clear Grid</button>
-      <button onClick={randomGrid}>Random Grid</button>
-      {speeds.map((item, i) => (
-        <button
-          key={item}
-          onClick={() => setSpeed(speeds[i].milleseconds)}
-          style={
-            item.milleseconds === speed
-              ? { backgroundColor: "magenta" }
-              : undefined
-          }
-        >
-          {item.name}
-        </button>
-      ))}
-      {samples.map((item) => (
-        <button onClick={() => sampleGrid(item.array)}>{item.name}</button>
-      ))}
-      <div
-        className="container"
-        style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${numCols}, ${size}px)`,
-        }}
-      >
-        {grid.map((rows, i) =>
-          rows.map((col, k) => (
-            <div
-              key={`${i}-${k}`}
-              onClick={() => {
-                const newGrid = produce(grid, (gridCopy) => {
-                  gridCopy[i][k] = grid[i][k] ? 0 : 1;
-                });
-                setGrid(newGrid);
-              }}
-              style={{
-                width: size,
-                height: size,
-                backgroundColor: grid[i][k] ? "pink" : undefined,
-                border: "1px solid black",
-                pointerEvents: running ? "none" : "auto",
-              }}
-            />
-          ))
-        )}
+      <div className="content-container">
+        <Header />
+        <Presets methods={{ sampleGrid2, sampleGrid, setRunning }} />
       </div>
-      <div>Generations: {gensRef.current}</div>
-      <div>Population: {popRef.current}</div>
-      <div>{running ? "Running" : "Paused"}</div>
+      <div className="game-container">
+        <Controls
+          methods={{
+            setRunning,
+            runSimulation,
+            clearGrid,
+            randomGrid,
+            setSpeed,
+          }}
+          constants={{ speeds }}
+          state={{ runningRef, running, speed }}
+        />
+
+        <div
+          className="grid-container"
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${numCols}, ${size}px)`,
+          }}
+        >
+          {grid.map((rows, i) =>
+            rows.map((col, k) => (
+              <div
+                key={`${i}-${k}`}
+                onClick={() => {
+                  const newGrid = produce(grid, (gridCopy) => {
+                    gridCopy[i][k] = grid[i][k] ? 0 : 1;
+                  });
+                  setGrid(newGrid);
+                }}
+                style={{
+                  width: size,
+                  height: size,
+                  backgroundColor: grid[i][k] ? "#7400b8" : undefined,
+                  border: "0.2px solid #4d194d",
+                  boxShadow: grid[i][k] ? "0px 0px 16px 0px #5e60ce" : "none",
+                  pointerEvents: running ? "none" : "auto",
+                }}
+              />
+            ))
+          )}
+        </div>
+        <Stats state={{ running, gensRef, popRef }} />
+      </div>
     </>
   );
 }

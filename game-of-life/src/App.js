@@ -1,13 +1,17 @@
 import React from "react";
-import Grid from "./components/grid";
+import Grid from "./components/Grid";
+import { IconContext } from "react-icons";
+import IconStyles from "./components/IconStyles";
 
 import "./App.css";
 
 function App() {
   return (
-    <>
-      <Grid />
-    </>
+    <IconContext.Provider value={IconStyles}>
+      <div className="app-wrapper">
+        <Grid />
+      </div>
+    </IconContext.Provider>
   );
 }
 
